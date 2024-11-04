@@ -1,0 +1,1 @@
+Site Web d'un Salon de coiffure qui sera composé d'une Base de donnée et dans lequel nous allons utilisé le design pattern MVC  (Model View Controller), ici nous avons créer la base de données de notre projet et également créer le Repository et l'Entité Client et Coiffeur
