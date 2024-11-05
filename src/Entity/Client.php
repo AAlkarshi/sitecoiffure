@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,7 +14,7 @@ class Client
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $Id_client = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $Nom_client = null;
@@ -32,9 +34,35 @@ class Client
     #[ORM\Column(length: 255)]
     private ?string $Password_client = null;
 
-    public function getIdClient(): ?int
+   
+
+    /**
+     * @var Collection<int, RendezVous>
+     */
+    #[ORM\ManyToMany(targetEntity: RendezVous::class, mappedBy: 'Id_Rendez_Vous')]
+    private Collection $RendezVousListes;
+
+    #[ORM\ManyToOne(inversedBy: 'Id_Coiffeur')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Coiffeur $Id_Coiffeur = null;
+
+    /**
+     * @var Collection<int, Abonnement>
+     */
+    #[ORM\ManyToMany(targetEntity: Abonnement::class)]
+    private Collection $Id_abonnement;
+
+    
+
+    public function __construct()
     {
-        return $this->Id_client;
+        $this->RendezVousListes = new ArrayCollection();
+        $this->Id_abonnement = new ArrayCollection();
+    }
+
+    public function getid(): ?int
+    {
+        return $this->id;
     }
 
     public function getNomClient(): ?string
@@ -102,4 +130,70 @@ class Client
         $this->Password_client = $Password_client;
         return $this;
     }
+
+   
+    /**
+     * @return Collection<int, RendezVous>
+     */
+    public function getRendezVousListes(): Collection
+    {
+        return $this->RendezVousListes;
+    }
+
+    public function addRendezVousListe(RendezVous $rendezVousListe): static
+    {
+        if (!$this->RendezVousListes->contains($rendezVousListe)) {
+            $this->RendezVousListes->add($rendezVousListe);
+            $rendezVousListe->addIdRendezVou($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRendezVousListe(RendezVous $rendezVousListe): static
+    {
+        if ($this->RendezVousListes->removeElement($rendezVousListe)) {
+            $rendezVousListe->removeIdRendezVou($this);
+        }
+
+        return $this;
+    }
+
+    public function getIdCoiffeur(): ?Coiffeur
+    {
+        return $this->Id_Coiffeur;
+    }
+
+    public function setIdCoiffeur(?Coiffeur $Id_Coiffeur): static
+    {
+        $this->Id_Coiffeur = $Id_Coiffeur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Abonnement>
+     */
+    public function getIdAbonnement(): Collection
+    {
+        return $this->Id_abonnement;
+    }
+
+    public function addIdAbonnement(Abonnement $idAbonnement): static
+    {
+        if (!$this->Id_abonnement->contains($idAbonnement)) {
+            $this->Id_abonnement->add($idAbonnement);
+        }
+
+        return $this;
+    }
+
+    public function removeIdAbonnement(Abonnement $idAbonnement): static
+    {
+        $this->Id_abonnement->removeElement($idAbonnement);
+
+        return $this;
+    }
+
+   
 }
