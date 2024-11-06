@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccueilController!{% endblock %}
+
+{% block body %}
+<div style="position: relative;">
+    <img src="{{ asset('IMGsaloncoiffure.jpg') }}" alt="Salon de coiffure" 
+    style="width:100%; max-width: 100%; max-height: 100%; height: auto;">
+
+    <div style="position: absolute; top: 10px; left: 0; right: 0; text-align: center;">
+        <ul style="display: flex; flex-direction: row; justify-content: space-around; 
+            list-style: none; padding: 0; background: rgba(255, 255, 255, 0.7); font-size: 20px;">
+
+            <li> <a href="#" style="text-decoration: none;"> SaloonCoiff </a> </li>
+            <li> <a href="#" style="text-decoration: none;"> Abonnement  </a></li>
+            <li> <a href="#" style="text-decoration: none;"> Infos Pratiques </a> </li>
+            <li> <a href="#" style="text-decoration: none;"> Prendre un Rendez-Vous </a> </li>
+            <li> <a href="#" style="text-decoration: none;"> Nos Tarifs </a> </li>
+            <li> <a href="#" style="text-decoration: none;"> S'Inscrire </a> </li>
+            <li> <a href="#" style="text-decoration: none;"> Se Connecter </a> </li>
+            <li> <a href="#" style="text-decoration: none;"> Contact </a> </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
