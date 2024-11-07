@@ -14,7 +14,8 @@
         "symfony/mercure-bundle": "*",
         "symfony/runtime": "7.1.*",
         "symfony/webapp-pack": "*",
-        "symfony/yaml": "7.1.*"
+        "symfony/yaml": "7.1.*",
+        "symfonycasts/verify-email-bundle": "*"
     },
     "config": {
         "allow-plugins": {

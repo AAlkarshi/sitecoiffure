@@ -1,0 +1,6 @@
+{
+    "unwantedRecommendations": [
+        "mblode.twig-language",
+        "bajdzis.vscode-twig-pack"
+    ]
+}

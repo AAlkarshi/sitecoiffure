@@ -7,11 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: CoiffeurRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['Email_coiffeur'])]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Coiffeur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id] /* Indique que c'est une CLE PRIMAIRE */
@@ -57,6 +59,9 @@ class Coiffeur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\ManyToMany(targetEntity: Service::class)]
     private Collection $Id_service;
+
+    #[ORM\Column]
+    private bool $isVerified = false;
 
 
 
@@ -308,6 +313,18 @@ class Coiffeur implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeIdService(Service $idService): static
     {
         $this->Id_service->removeElement($idService);
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
